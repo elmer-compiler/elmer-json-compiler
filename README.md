@@ -1,25 +1,17 @@
+## Elmer JSON Compiler
+
+Tiny modification to the official [elm-compiler](http://github.com/elm-lang/elm-compiler) to output JSON AST.
+
 Learn about the Elm programming language at [elm-lang.org](http://elm-lang.org/).
 
-[![Build Status](https://travis-ci.org/elm-lang/elm-compiler.svg?branch=master)](https://travis-ci.org/elm-lang/elm-compiler)
+![json](https://raw.githubusercontent.com/vic/elmer-json-compiler/master/elmer-json.png)
 
 ## Install
 
-Follow [these instructions][installer] to use Elm on your machine. Be sure to use
-the platform specific installers if you are on Mac or Windows. It's way easier!
-
- [installer]: https://github.com/elm-lang/elm-platform/blob/master/README.md#elm-platform
 
 ## Build from source / Contribute
 
-Use [this script][build] to build the entire Elm Platform from source: the compiler,
-REPL, package manager, and reactor. Be sure to read all the instructions to learn
-how the script works and what your workflow will be like.
 
-[build]: https://github.com/elm-lang/elm-platform/blob/master/installers/BuildFromSource.hs
+## Erlang
 
-## Help
-
-If you are stuck, email
-[the list](https://groups.google.com/forum/?fromgroups#!forum/elm-discuss)
-or ask a question in the
-[#Elm IRC channel](http://webchat.freenode.net/?channels=elm).
+[Elmer](http://github.com/vic/elmer-compiler) reads the JSON AST from this compiler and lets you run Elm program on the BEAM VM.
