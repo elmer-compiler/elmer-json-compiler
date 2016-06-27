@@ -1,4 +1,4 @@
-{-# LANGUAGE DeriveGeneric, DeriveAnyClass #-}
+{-# LANGUAGE DeriveGeneric, DeriveAnyClass, OverloadedStrings #-}
 {-# OPTIONS_GHC -Wall #-}
 module AST.Expression.Optimized
     ( Def(..), Facts(..), dummyFacts
@@ -29,8 +29,10 @@ data Def
 data Facts = Facts
     { home :: Maybe ModuleName.Canonical
     , dependencies :: [Var.TopLevel]
-    } deriving (Generic, Json.ToJSON)
+    } deriving (Generic)
 
+instance Json.ToJSON Facts where
+  toJSON _ = Json.String "no-facts"
 
 dummyFacts :: Facts
 dummyFacts =
@@ -85,3 +87,4 @@ data Choice
     = Inline Expr
     | Jump Int
     deriving (Generic, Json.ToJSON)
+
