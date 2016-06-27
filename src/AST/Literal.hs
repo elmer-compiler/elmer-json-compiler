@@ -1,8 +1,11 @@
+{-# LANGUAGE DeriveGeneric, DeriveAnyClass #-}
 {-# OPTIONS_GHC -Wall #-}
 module AST.Literal where
 
 import qualified Data.Map as Map
 
+import GHC.Generics (Generic)
+import qualified Data.Aeson as Json
 
 data Literal
     = IntNum Int
@@ -10,7 +13,7 @@ data Literal
     | Chr Char
     | Str String
     | Boolean Bool
-    deriving (Eq, Ord)
+    deriving (Eq, Ord, Generic, Json.ToJSON)
 
 
 toString :: Literal -> String
@@ -31,7 +34,7 @@ data GLTipe
     | V4
     | M4
     | Texture
-    deriving (Eq)
+    deriving (Eq, Generic, Json.ToJSON)
 
 
 glTipeName :: GLTipe -> String
@@ -51,4 +54,4 @@ data GLShaderTipe = GLShaderTipe
     , uniform :: Map.Map String GLTipe
     , varying :: Map.Map String GLTipe
     }
-    deriving (Eq)
+    deriving (Eq, Generic, Json.ToJSON)

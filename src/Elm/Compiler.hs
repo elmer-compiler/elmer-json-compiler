@@ -33,6 +33,7 @@ import qualified Reporting.Report as Report
 import qualified Reporting.Result as Result
 import qualified Reporting.Warning as Warning
 
+import qualified Generate.JsonAST as JsonAST
 
 
 -- VERSION
@@ -96,7 +97,7 @@ compile context source interfaces =
           docs <- Result.format Error.Docs (docsGen isExposed modul)
 
           let interface = Module.toInterface packageName modul
-          let javascript = JS.generate modul
+          let javascript = JsonAST.generate modul
 
           return (Result docs interface javascript)
   in

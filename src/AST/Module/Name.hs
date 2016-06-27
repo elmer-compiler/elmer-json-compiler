@@ -1,9 +1,14 @@
+{-# LANGUAGE DeriveGeneric, DeriveAnyClass #-}
+
 module AST.Module.Name where
 
 import Data.Binary
 import qualified Data.List as List
 
 import qualified Elm.Package as Package
+
+import GHC.Generics (Generic)
+import qualified Data.Aeson as Json
 
 
 type Raw = [String] -- must be non-empty
@@ -13,7 +18,7 @@ data Canonical = Canonical
     { _package :: Package.Name
     , _module :: Raw
     }
-    deriving (Eq, Ord, Show)
+    deriving (Eq, Ord, Show, Generic, Json.ToJSON)
 
 
 inCore :: Raw -> Canonical

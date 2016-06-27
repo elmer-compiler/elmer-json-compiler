@@ -1,3 +1,5 @@
+{-# LANGUAGE DeriveGeneric, DeriveAnyClass #-}
+
 module AST.Type
     ( Raw, Raw'(..)
     , Canonical(..), Aliased(..)
@@ -16,6 +18,8 @@ import qualified AST.Variable as Var
 import qualified Reporting.Annotation as A
 import qualified Reporting.Region as R
 
+import GHC.Generics
+import qualified Data.Aeson as Json
 
 
 -- DEFINITION
@@ -40,13 +44,13 @@ data Canonical
     | App Canonical [Canonical]
     | Record [(String, Canonical)] (Maybe Canonical)
     | Aliased Var.Canonical [(String, Canonical)] (Aliased Canonical)
-    deriving (Eq, Ord)
+    deriving (Eq, Ord, Generic, Json.ToJSON)
 
 
 data Aliased t
     = Holey t
     | Filled t
-    deriving (Eq, Ord)
+    deriving (Eq, Ord, Generic, Json.ToJSON)
 
 
 

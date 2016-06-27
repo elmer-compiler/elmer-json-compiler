@@ -1,3 +1,5 @@
+{-# LANGUAGE DeriveGeneric, DeriveAnyClass #-}
+
 module AST.Effects where
 
 import qualified AST.Type as Type
@@ -6,6 +8,8 @@ import qualified Reporting.Annotation as A
 import qualified Reporting.Region as R
 
 
+import GHC.Generics
+import qualified Data.Aeson as Json
 
 -- EFFECTS
 
@@ -14,6 +18,7 @@ data Effects pkg ports
   = None
   | Manager pkg Info
   | Port ports
+  deriving (Generic, Json.ToJSON)
 
 
 type Raw =
@@ -35,13 +40,14 @@ data Info =
     , _onEffects :: R.Region
     , _onSelfMsg :: R.Region
     , _managerType :: ManagerType
-    }
+    } deriving (Generic, Json.ToJSON)
 
 
 data ManagerType
   = CmdManager (A.Located String)
   | SubManager (A.Located String)
   | FxManager (A.Located String) (A.Located String)
+  deriving (Generic, Json.ToJSON)
 
 
 
@@ -60,9 +66,10 @@ data PortCanonical =
     { _name :: String
     , _kind :: Kind
     , _type :: Type.Canonical
-    }
+    } deriving (Generic, Json.ToJSON)
 
 
 data Kind
   = Outgoing Type.Canonical
   | Incoming Type.Canonical
+  deriving (Generic, Json.ToJSON)

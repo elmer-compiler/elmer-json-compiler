@@ -85,6 +85,7 @@ Library
         Elm.Compiler.Imports,
         Elm.Compiler.Type.Extract,
         Elm.Compiler.Version,
+        Generate.JsonAST,
         Generate.JavaScript,
         Generate.JavaScript.Builder,
         Generate.JavaScript.BuiltIn,

@@ -1,8 +1,12 @@
+{-# LANGUAGE DeriveGeneric, DeriveAnyClass #-}
+
 module Reporting.Annotation where
 
 import Prelude hiding (map)
 import qualified Reporting.Region as R
 
+import GHC.Generics
+import qualified Data.Aeson as Json
 
 
 -- ANNOTATION
@@ -10,6 +14,7 @@ import qualified Reporting.Region as R
 
 data Annotated annotation a
     = A annotation a
+    deriving (Generic, Json.ToJSON)
 
 
 type Located a =

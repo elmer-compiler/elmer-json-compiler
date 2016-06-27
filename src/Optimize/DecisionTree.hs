@@ -1,3 +1,4 @@
+{-# LANGUAGE DeriveGeneric, DeriveAnyClass #-}
 {-# OPTIONS_GHC -Wall #-}
 module Optimize.DecisionTree where
 {- To learn more about how this works, definitely read through:
@@ -22,6 +23,9 @@ import qualified AST.Literal as L
 import qualified AST.Pattern as P
 import qualified AST.Variable as Var
 import qualified Reporting.Annotation as A
+
+import GHC.Generics (Generic)
+import qualified Data.Aeson as Json
 
 
 type CPattern = P.Canonical
@@ -79,7 +83,7 @@ data DecisionTree
 data Test
     = Constructor Var.Canonical
     | Literal L.Literal
-    deriving (Eq, Ord)
+    deriving (Eq, Ord, Generic, Json.ToJSON)
 
 
 data Path
@@ -87,7 +91,7 @@ data Path
     | Field String Path
     | Empty
     | Alias
-    deriving (Eq)
+    deriving (Eq, Generic, Json.ToJSON)
 
 
 -- PATH HELPERS

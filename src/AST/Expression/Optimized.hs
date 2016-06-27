@@ -1,3 +1,4 @@
+{-# LANGUAGE DeriveGeneric, DeriveAnyClass #-}
 {-# OPTIONS_GHC -Wall #-}
 module AST.Expression.Optimized
     ( Def(..), Facts(..), dummyFacts
@@ -14,18 +15,21 @@ import qualified Optimize.DecisionTree as DT
 import qualified Reporting.Region as R
 
 
+import GHC.Generics (Generic)
+import qualified Data.Aeson as Json
 
 -- DEFINITIONS
 
 data Def
     = Def Facts String Expr
     | TailDef Facts String [String] Expr
+    deriving (Generic, Json.ToJSON)
 
 
 data Facts = Facts
     { home :: Maybe ModuleName.Canonical
     , dependencies :: [Var.TopLevel]
-    }
+    } deriving (Generic, Json.ToJSON)
 
 
 dummyFacts :: Facts
@@ -59,6 +63,7 @@ data Expr
     | Program (Expr.Main Type.Canonical) Expr
     | GLShader String String Literal.GLShaderTipe
     | Crash ModuleName.Canonical R.Region (Maybe Expr)
+    deriving (Generic, Json.ToJSON)
 
 
 data Decider a
@@ -73,9 +78,10 @@ data Decider a
         , _tests :: [(DT.Test, Decider a)]
         , _fallback :: Decider a
         }
-    deriving (Eq)
+    deriving (Eq, Generic, Json.ToJSON)
 
 
 data Choice
     = Inline Expr
     | Jump Int
+    deriving (Generic, Json.ToJSON)

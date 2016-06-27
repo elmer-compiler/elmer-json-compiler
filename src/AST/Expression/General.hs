@@ -1,3 +1,4 @@
+{-# LANGUAGE DeriveGeneric, DeriveAnyClass #-}
 {-# OPTIONS_GHC -Wall #-}
 
 {-| The Abstract Syntax Tree (AST) for expressions comes in a couple formats.
@@ -15,7 +16,8 @@ import qualified AST.Pattern as Pattern
 import qualified AST.Variable as Var
 import qualified Reporting.Annotation as A
 
-
+import GHC.Generics (Generic)
+import qualified Data.Aeson as Json
 
 ---- GENERAL AST ----
 
@@ -62,12 +64,14 @@ data Expr' ann def var typ
     | Program (Main typ) (Expr ann def var typ)
     | SaveEnv ModuleName.Canonical Effects.Canonical
     | GLShader String String Literal.GLShaderTipe
+    deriving (Generic, Json.ToJSON)
 
 
 data Main typ
   = VDom
   | NoFlags
   | Flags typ
+  deriving (Generic, Json.ToJSON)
 
 
 

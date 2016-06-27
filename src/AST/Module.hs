@@ -1,3 +1,5 @@
+{-# LANGUAGE DeriveGeneric, DeriveAnyClass #-}
+
 module AST.Module
     ( Header(..), Module(..)
 
@@ -31,7 +33,8 @@ import qualified Elm.Compiler.Version as Compiler
 import qualified Reporting.Annotation as A
 import qualified Reporting.Region as R
 
-
+import qualified Data.Aeson as Json
+import GHC.Generics
 
 -- HEADERS FOR PARSING
 
@@ -57,7 +60,8 @@ data Module phase =
     { name :: Name.Canonical
     , path :: FilePath
     , info :: phase
-    }
+    } deriving (Generic, Json.ToJSON)
+
 
 
 type Source =
@@ -144,7 +148,7 @@ data Info program =
     , aliases :: Aliases
     , unions :: Unions
     , effects :: Effects.Canonical
-    }
+    } deriving (Generic, Json.ToJSON)
 
 
 type Types =

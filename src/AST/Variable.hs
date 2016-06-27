@@ -1,3 +1,5 @@
+{-# LANGUAGE DeriveGeneric, DeriveAnyClass #-}
+
 module AST.Variable where
 
 import Data.Binary
@@ -6,7 +8,8 @@ import qualified Data.Maybe as Maybe
 import qualified AST.Helpers as Help
 import qualified AST.Module.Name as ModuleName
 
-
+import GHC.Generics
+import qualified Data.Aeson as Json
 
 -- RAW NAMES
 
@@ -23,7 +26,7 @@ data TopLevel = TopLevelVar
     { topHome :: ModuleName.Canonical
     , topName :: String
     }
-    deriving (Eq, Ord)
+    deriving (Eq, Ord, Generic, Json.ToJSON)
 
 
 
@@ -35,14 +38,14 @@ data Home
     | Module ModuleName.Canonical
     | TopLevel ModuleName.Canonical
     | Local
-    deriving (Eq, Ord)
+    deriving (Eq, Ord, Generic, Json.ToJSON)
 
 
 data Canonical = Canonical
     { home :: !Home
     , name :: !String
     }
-    deriving (Eq, Ord)
+    deriving (Eq, Ord, Generic, Json.ToJSON)
 
 
 local :: String -> Canonical
@@ -208,7 +211,7 @@ data Listing a = Listing
     { _explicits :: [a]
     , _open :: Bool
     }
-    deriving (Eq, Ord)
+    deriving (Eq, Ord, Generic, Json.ToJSON)
 
 
 openListing :: Listing a
@@ -231,7 +234,7 @@ data Value
     = Value !String
     | Alias !String
     | Union !String !(Listing String)
-    deriving (Eq, Ord)
+    deriving (Eq, Ord, Generic, Json.ToJSON)
 
 
 

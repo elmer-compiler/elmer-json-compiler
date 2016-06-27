@@ -1,3 +1,4 @@
+{-# LANGUAGE DeriveGeneric, DeriveAnyClass #-}
 {-# OPTIONS_GHC -Wall #-}
 module AST.Pattern where
 
@@ -8,6 +9,8 @@ import qualified AST.Variable as Var
 import qualified Reporting.Annotation as A
 import qualified Reporting.Region as R
 
+import GHC.Generics (Generic)
+import qualified Data.Aeson as Json
 
 type Pattern ann var =
     A.Annotated ann (Pattern' ann var)
@@ -20,6 +23,7 @@ data Pattern' ann var
     | Var String
     | Anything
     | Literal L.Literal
+    deriving (Generic, Json.ToJSON)
 
 
 type Raw =

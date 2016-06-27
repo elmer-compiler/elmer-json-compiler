@@ -1,3 +1,4 @@
+{-# LANGUAGE DeriveGeneric, DeriveAnyClass #-}
 {-# OPTIONS_GHC -Wall #-}
 module AST.Declaration where
 
@@ -10,6 +11,8 @@ import qualified AST.Type as Type
 import qualified Reporting.Annotation as A
 
 
+import GHC.Generics (Generic)
+import qualified Data.Aeson as Json
 
 -- SOURCE DECLARATIONS
 
@@ -101,11 +104,11 @@ data Infix =
     { _op :: String
     , _associativity :: Assoc
     , _precedence :: Int
-    }
+    } deriving (Generic, Json.ToJSON)
 
 
 data Assoc = L | N | R
-    deriving (Eq)
+    deriving (Eq, Generic, Json.ToJSON)
 
 
 assocToString :: Assoc -> String
